@@ -6,7 +6,7 @@ import { auth } from '../firebase';
 import { db } from '../firebase';
 
 
-const WriterScreen = () => {
+const WriterScreen = ({navigation}) => {
   const [storyTitle, setStoryTitle] = useState('');
   const [storySummary, setStorySummary] = useState('');
   const [storyContent, setStoryContent] = useState('');
@@ -34,6 +34,7 @@ const WriterScreen = () => {
       } catch (error) {
         console.error('Error saving story to Firebase:', error);
       }
+      navigation.navigate('Home');
     };
   
 

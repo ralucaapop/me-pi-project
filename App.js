@@ -10,6 +10,7 @@ import HomeScreen from './screens/Home'
 import ReaderScreen from './screens/ReaderScreen'; 
 import WriterScreen from './screens/WriterScreen'; 
 import UserProfileScreen from './screens/UserProfileScreen';
+import PostDetailScreen from './screens/PostDetailScreen';
 
 const Stack = createStackNavigator();
 
@@ -23,6 +24,7 @@ function App() {
         <Stack.Screen name="ReaderScreen" component={ReaderScreen} />
         <Stack.Screen name="WriterScreen" component={WriterScreen} />
         <Stack.Screen name="UserProfile" component={UserProfileScreen} />
+        <Stack.Screen name="PostDetail" component={PostDetailScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
