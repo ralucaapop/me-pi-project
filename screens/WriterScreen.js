@@ -1,20 +1,41 @@
-import React, { useState }  from 'react';
+import React, { useState, useEffect }  from 'react';
 import { View, Text, TextInput, Button, StyleSheet, KeyboardAvoidingView, ScrollView } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
+import { addDoc, collection, serverTimestamp} from 'firebase/firestore';
+import { auth } from '../firebase';
+import { db } from '../firebase';
+
 
 const WriterScreen = () => {
   const [storyTitle, setStoryTitle] = useState('');
   const [storySummary, setStorySummary] = useState('');
   const [storyContent, setStoryContent] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('fantasy');
+  const [selectedCategory, setSelectedCategory] = useState('Walk Of Fame');
 
-  const handleSaveStory = () => {
-    // Implement logic to save the story to a database or perform any other action
-    console.log('Story Title:', storyTitle);
-    console.log('Story Summary:', storySummary);
-    console.log('Story Content:', storyContent);
-    console.log('Selected Category:', selectedCategory);
-  };
+  
+    const handleSaveStory = async () => {
+       try {
+            // Ensure user is authenticated
+            const user = auth.currentUser;
+            if (!user) {
+              console.error('User not authenticated');
+              return;
+            }
+            // Add the story data to Firestore with the user ID
+            await addDoc(collection(db, 'stories'), {
+              userId: user.uid,
+              title: storyTitle,
+              summary: storySummary,
+              content: storyContent,
+              category: selectedCategory,
+              timestamp: serverTimestamp(),
+        });
+        console.log('Story saved successfully to Firebase!');
+      } catch (error) {
+        console.error('Error saving story to Firebase:', error);
+      }
+    };
+  
 
   return (
     <ScrollView style={styles.container}>
