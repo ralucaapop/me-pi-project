@@ -6,17 +6,17 @@ import { auth, db } from '../firebase';
 import { doc, getDoc, updateDoc, setDoc, collection, where, query, getDocs } from 'firebase/firestore';
 import { useNavigation } from '@react-navigation/native';
 
+import { LogBox } from 'react-native';
 
+// Ignore the warning about VirtualizedLists inside ScrollView
+LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
 
 const UserProfile = () => {
   const currentUser = auth.currentUser;
   const navigation = useNavigation();
   const [likedStories, setLikedStories] = useState([]);
 
-  const [userProfile, setUserProfile] = useState({
-    email: '',
-    description: '',
-  });
+  const [userProfile, setUserProfile] = useState({});
   const [userStories, setUserStories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('YourStories');
@@ -26,23 +26,16 @@ const UserProfile = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const userDocRef = doc(db, 'users', currentUser.uid);
-        const userSnapshot = await getDoc(userDocRef);
-  
-        if (userSnapshot.exists()) {
-          const userData = userSnapshot.data();
-          setUserProfile({
-            email: currentUser.email,
-            description: userData?.description || '',
-          });
+        const usersCollectionRef = collection(db, 'users');
+        const userQuery = query(usersCollectionRef, where('userId', '==', currentUser.uid));
+        const userQuerySnapshot = await getDocs(userQuery);
+        if (userQuerySnapshot.docs.length > 0) {
+          const userData = userQuerySnapshot.docs[0].data();
+          setUserProfile({ id: userQuerySnapshot.docs[0].id, ...userData });
         } else {
-          await setDoc(userDocRef, { description: '' });
-          setUserProfile({
-            email: currentUser.email,
-            description: '',
-          });
+          console.log('User not found');
         }
-  
+    
         setLoading(false);
       } catch (error) {
         console.error('Error fetching user data:', error);
@@ -94,12 +87,16 @@ const UserProfile = () => {
 
   const updateDescription = async () => {
     try {
-      const userDocRef = doc(db, 'users', currentUser.uid);
-      await updateDoc(userDocRef, { description: userProfile.description });
+      const userDocRef = doc(db, 'users', userProfile.id);
+      await setDoc(userDocRef, { description: userProfile.description }, { merge: true });
+  
+      // Optionally, you can also update the local state after a successful update
+      setUserProfile((prevProfile) => ({ ...prevProfile, description: userProfile.description }));
     } catch (error) {
       console.error('Error updating description:', error);
     }
   };
+  
   const toggleUserStories = () => {
     setShowUserStories(!showUserStories);
   };

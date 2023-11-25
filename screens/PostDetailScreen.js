@@ -3,14 +3,14 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet,ScrollView, TouchableOpacity} from 'react-native';
 import { db, auth } from '../firebase';
 import { collection, doc, getDoc, updateDoc, arrayRemove, arrayUnion } from 'firebase/firestore';
+import { useNavigation } from '@react-navigation/native';
 
 const PostDetailScreen = ({ route }) => {
   const { postId } = route.params;
   const [post, setPost] = useState({});
-
+  const navigation = useNavigation();
   const currentUser = auth.currentUser;
   const [isLiked, setIsLiked] = useState(false);
-
   const likedBy = post?.likedBy || [];
 
   useEffect(() => {
@@ -51,6 +51,7 @@ const PostDetailScreen = ({ route }) => {
           setPost({ id: postDoc.id, ...postDoc.data() });
 
           // Fetch user email from the user's document
+          console.log(post.userId);
           const currentUser = auth.currentUser;
           if (currentUser) {
             setPost((prevPost) => ({ ...prevPost, userEmail: currentUser.email }));
@@ -68,14 +69,21 @@ const PostDetailScreen = ({ route }) => {
     fetchPostDetails();
   }, [postId]);
 
+  const navigateToWritterProfile = (writerId) => {
+    // Navigate to the PostDetail screen with the selected postId
+    navigation.navigate('UserProfile2', { writerId });
+  };
   return (
     <ScrollView style={styles.container}>
 
-      <Text style={styles.userEmail}>User Email: {post.userEmail}</Text>
+      <TouchableOpacity onPress={() => navigateToWritterProfile(post.userId)}>
+          <Text style={styles.profileButton}>View Writer Profile</Text>
+      </TouchableOpacity>
       <Text style={styles.title}>Title: {post.title}</Text>
-      <TouchableOpacity onPress={handleLike}>
+      <TouchableOpacity  onPress={handleLike}>
         <Text style={{ color: isLiked ? 'red' : 'black' }}>{isLiked ? '❤️' : '🖤'}</Text>
       </TouchableOpacity>
+
       <Text style={styles.summary}>Summary: </Text>
       <Text>{post.summary}</Text>
       <Text style={styles.content}>Content: </Text>
@@ -89,38 +97,44 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#FFF',
+    backgroundColor: '#FFFFFF',
   },
-  header: {
-    fontSize: 24,
-    fontWeight: 'bold',
+  profileButton: {
+    fontSize: 20,
+    color: '#FF79CC', // Orange-Red color
     marginBottom: 10,
-    color: '#FF69B4', // Pink color
-  },
-  userEmail: {
-    fontSize: 16,
-    marginBottom: 10,
-    color: '#FF69B4', // Pink color
   },
   title: {
-    fontSize: 18,
+    fontSize: 24,
     fontWeight: 'bold',
-    marginTop: 10,
-    marginBottom: 5,
+    marginVertical: 10,
     color: '#333',
   },
   summary: {
-    fontSize: 16,
-    color: '#666', // Medium gray color
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#FF79CC',
+    marginBottom: 5,
   },
-  contentContainer: {
-    backgroundColor: '#FFEBEC', // Light pink background
-    padding: 10,
-    borderRadius: 8,
-    marginTop: 10,
+  summaryText: {
+    fontSize: 16,
+    color: '#666',
+    marginBottom: 10,
   },
   content: {
-    color: '#FF69B4', // Pink color
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#FF79CC',
+    marginBottom: 5,
+  },
+  contentText: {
+    fontSize: 16,
+    color: '#333',
+    marginBottom: 10,
+  },
+  likedBy: {
+    fontSize: 16,
+    color: '#666',
   },
 });
 export default PostDetailScreen;

@@ -4,6 +4,8 @@ import { KeyboardAvoidingView, View, Text, TextInput, Button, StyleSheet, Toucha
 import { AntDesign } from '@expo/vector-icons';
 import { signInWithEmailAndPassword } from 'firebase/auth'; 
 import { auth } from '../firebase';
+import { Alert } from 'react-native'; 
+
 
 const LoginScreen = ({ navigation }) => {
   const [email, setUsername] = useState('');
@@ -16,7 +18,12 @@ const LoginScreen = ({ navigation }) => {
       console.log('Login successful!');
       navigation.navigate('Home');
     } catch (error) {
-      console.error('Login error:', error.message);
+      if (error.code === 'auth/invalid-login-credentials') {
+        Alert.alert('Wrong email or password. Try again');
+       
+      } else {
+        console.error('Login error:', error.message);
+      }
     }
   };
 

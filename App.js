@@ -10,6 +10,7 @@ import HomeScreen from './screens/Home'
 import ReaderScreen from './screens/ReaderScreen'; 
 import WriterScreen from './screens/WriterScreen'; 
 import UserProfileScreen from './screens/UserProfileScreen';
+import UserProfileScreen2 from './screens/UserProfile2';
 import PostDetailScreen from './screens/PostDetailScreen';
 import SectionSelectionScreen from './screens/SectionSelectionScreen';
 import VerificationScreen from './screens/VerS';
@@ -26,6 +27,7 @@ function App() {
         <Stack.Screen name="ReaderScreen" component={ReaderScreen} />
         <Stack.Screen name="WriterScreen" component={WriterScreen} />
         <Stack.Screen name="UserProfile" component={UserProfileScreen} />
+        <Stack.Screen name="UserProfile2" component={UserProfileScreen2} />
         <Stack.Screen name="PostDetail" component={PostDetailScreen} />
         <Stack.Screen name="SectionSelection" component={SectionSelectionScreen} />
         <Stack.Screen name="Verification" component={VerificationScreen} />

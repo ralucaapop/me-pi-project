@@ -6,38 +6,49 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { auth } from '../firebase';
 import { getAuth, createUserWithEmailAndPassword,sendSignInLinkToEmail  } from 'firebase/auth';
 import { Alert } from 'react-native'; 
+import emailjs from 'emailjs-com';
 
 const SignupScreen = ({ navigation }) => {
   const [username, setUsername] = useState('');
   const [email, setUserEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const generatedCode = Math.floor(1000 + Math.random() * 9000);
 
+  const sendEmail = async () => {
+    try {
+      const templateParams = {
+        code: generatedCode,
+        email: email,
+      };
+ 
+      const response = await emailjs.send(
+        'service_xhrfr5c', 
+        'template_6zs0u2a', 
+        templateParams,
+        'M2nZ6qEBEoijAaW4m'
+      );
+
+      console.log('Email sent successfully:', response);
+    } catch (error) {
+      console.error('Error sending email:', error);
+    }
+  };
 
   const handleSignup = async () => {
-
     try {
       // Create a user account with email and password
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
+      //const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      //const user = userCredential.user;
 
-      // Generate the email verification link
-      const actionCodeSettings = {
-        url: 'http://localhost:3000/emailVerification',
-        handleCodeInApp: true,
-      };
-
-      if (user) {
-        
-        await sendSignInLinkToEmail(auth, email, actionCodeSettings);
-
+        sendEmail();
         Alert.alert(
           'Email Verification Sent',
           'A verification email has been sent. Please check your email and follow the instructions to complete the sign-up process.'
         );
-        console.log('Sign-up successful!');
-        navigation.navigate('Home');
-      }
+      
+        navigation.navigate('Verification', { email, password, generatedCode });
+      
     } catch (error) {
       console.error('Error creating user:', error.code, error.message);
     }
@@ -50,15 +61,6 @@ const SignupScreen = ({ navigation }) => {
       <Text style={styles.title2}>share your story and ideas with us</Text>
       <Text style={styles.title}>Create your account</Text>
     
-      <View style={styles.inputContainer}>
-        <AntDesign name="user" size={24} color="black" style={styles.icon} />
-        <TextInput
-        placeholder="Username"
-        value={username}
-        onChangeText={text => setUsername(text)}
-        />
-      </View>
-
       <View style={styles.inputContainer}>
         <AntDesign name="mail" size={24} color="black" style={styles.icon} />
         <TextInput

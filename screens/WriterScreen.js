@@ -12,12 +12,15 @@ const WriterScreen = ({navigation}) => {
   const [storyContent, setStoryContent] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('Walk Of Fame');
 
-  const sendEmail = async () => {
+  const sendEmail = async (storyContent,storyTitle,storySummary) => {
     try {
       const templateParams = {
-        to_email: auth.currentUser.email,
+        email: auth.currentUser.email,
         subject: 'Your Story has been posted!',
         message: 'Thank you for posting your story. It has been successfully saved.',
+        storyC: storyContent,
+        storyTitle: storyTitle,
+        storySummary: storySummary,
       };
 
       
@@ -54,7 +57,7 @@ const WriterScreen = ({navigation}) => {
         });
        
         console.log('Story saved successfully to Firebase!');
-        sendEmail();
+        sendEmail(storyContent,storyTitle,storySummary);
       } catch (error) {
         console.error('Error saving story to Firebase:', error);
       }

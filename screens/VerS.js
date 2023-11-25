@@ -1,32 +1,51 @@
 
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import React, {useState} from 'react'; 
-
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { addDoc, collection, serverTimestamp} from 'firebase/firestore';
+import { db } from '../firebase';
+import { auth } from '../firebase';
 
 const VerificationScreen = ({ route, navigation }) => {
-  const { email, generatedCode } = route.params;
-  const [verificationCode, setVerificationCode] = useState('');
-
-  const handleVerify = () => {
-    // Validate the entered code against the generated code
-    if (verificationCode === generatedCode) {
+  const { email, password, generatedCode } = route.params;
+  const [verificationCode, setVerificationCode] = useState();
+  
+  const handleVerify = async () => {
+    const codeAsNumber = parseInt(verificationCode, 10);
+    console.log(generatedCode);
+    console.log(verificationCode);
+    if (codeAsNumber === generatedCode) {
       // Code is valid, you can proceed with account creation
       Alert.alert('Verification Successful', 'Your account has been successfully verified!');
-      const userCredential = createUserWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
-
-
-      // Navigate to the Home screen or any other screen
-      navigation.navigate('Home');
-      console.log("Signup succesfully")
-      sendSignInLinkToEmail(auth, email, actionCodeSettings, emailTemplate);
-
+     
+      try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = auth.currentUser;
+        await addDoc(collection(db, 'users'), {
+          userId: user.uid,
+          email: email,
+          description: "profile description",
+          timestamp: serverTimestamp(),
+    });
+        navigation.navigate('Home');
+        console.log("Signup successfully");
+      } catch (error) {
+        if (error.code === 'auth/email-already-in-use') {
+          Alert.alert('Email Already Exists', 'This email address is already associated with an account. Please sign in or use a different email address.');
+          navigation.navigate('Signup');
+        }else if (error.code === 'auth/weak-password') {
+          Alert.alert('Weak Password', 'Please choose a stronger password(minimum 7 characters).');
+          navigation.navigate('Signup');
+        }else { Alert.alert("Somethig went wrong, try aiagin")
+          console.error('Error creating user:', error.code, error.message);
+        }
+      }
     } else {
       // Code is invalid
       Alert.alert('Invalid Code', 'Please enter the correct verification code.');
     }
   };
-
+ 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Verify Your Email</Text>
@@ -38,7 +57,7 @@ const VerificationScreen = ({ route, navigation }) => {
         placeholder="Verification Code"
         value={verificationCode}
         onChangeText={(text) => setVerificationCode(text)}
-        keyboardType="numeric"
+        keyboardType='numeric'
       />
       <TouchableOpacity style={styles.verifyButton} onPress={handleVerify}>
         <Text style={styles.buttonText}>Verify</Text>
