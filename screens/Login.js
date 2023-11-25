@@ -22,7 +22,10 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <KeyboardAvoidingView style={styles.container}>
-      <Text style={styles.title}>Login</Text>
+      
+      <Text style={styles.logoText}>ME</Text>
+  
+
       <View style={styles.inputContainer}>
         <AntDesign name="mail" size={24} color="black" style={styles.icon} />
         <TextInput
@@ -59,60 +62,67 @@ const LoginScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      paddingHorizontal: 20,
-    },
-    title: {
-      fontSize: 24,
-      fontWeight: 'bold',
-      marginBottom: 20,
-    },
-    inputContainer: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      marginBottom: 16,
-      backgroundColor: 'white',
-      borderRadius: 5,
-      width: '100%',
-    },
-    icon: {
-      padding: 10,
-    },
-    
-    input: {
-      height: 40,
-      width: '100%',
-      borderColor: 'gray',
-      borderWidth: 1,
-      marginBottom: 10,
-      paddingLeft: 10,
-    },
-    signupLink: {
-      marginTop: 20,
-      color: 'blue',
-    },
-    loginButton: {
-      backgroundColor: '#3498db',
-      padding: 15,
-      borderRadius: 8,
-      width: '100%',
-      alignItems: 'center',
-      marginTop: 20,
-      elevation: 3, // for a slight shadow on Android
-      shadowColor: '#000', // for a slight shadow on iOS
-      shadowOffset: { width: 0, height: 1 },
-      shadowOpacity: 0.5,
-      shadowRadius: 2,
-    },
-    
-    buttonText: {
-      color: 'white',
-      fontSize: 18,
-      fontWeight: 'bold',
-    },
-  });
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    backgroundColor: '#E6C2D1',
+  },
+  
+  logoText: {
+    fontSize: 94,
+    fontWeight: 'bold',
+    color: '#555',
+    marginBottom: 50,
+    color: '#3B011E',
+  },
+  title: {
+    fontSize: 44,
+    fontWeight: 'bold',
+    marginBottom: 50,
+    color: '#FF69B4', // Hot Pink text color
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 16,
+    backgroundColor: 'white',
+    borderRadius: 5,
+    width: '100%',
+  },
+  icon: {
+    padding: 10,
+  },
+  input: {
+    height: 40,
+    flex: 1,
+  },
+  passwordInput: {
+    flex: 1,
+  },
+  signupLink: {
+    marginTop: 20,
+    color: '#FF69B4', // Hot Pink text color
+  },
+  loginButton: {
+    backgroundColor: '#FF69B4', // Hot Pink button color
+    padding: 15,
+    borderRadius: 30,
+    width: '100%',
+    alignItems: 'center',
+    marginTop: 20,
+    elevation: 3, // for a slight shadow on Android
+    shadowColor: '#000', // for a slight shadow on iOS
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.5,
+    shadowRadius: 2,
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+});
 
 export default LoginScreen;

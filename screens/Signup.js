@@ -1,10 +1,11 @@
 
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity,KeyboardAvoidingView } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { auth } from '../firebase';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, createUserWithEmailAndPassword,sendSignInLinkToEmail  } from 'firebase/auth';
+import { Alert } from 'react-native'; 
 
 const SignupScreen = ({ navigation }) => {
   const [username, setUsername] = useState('');
@@ -14,20 +15,41 @@ const SignupScreen = ({ navigation }) => {
 
 
   const handleSignup = async () => {
+
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      console.log('Sign-up successful!');
-      navigation.navigate('Home');
-      } catch (error) {
-      console.error('Sign-up error:', error.message);
+      // Create a user account with email and password
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      // Generate the email verification link
+      const actionCodeSettings = {
+        url: 'http://localhost:3000/emailVerification',
+        handleCodeInApp: true,
+      };
+
+      if (user) {
+        
+        await sendSignInLinkToEmail(auth, email, actionCodeSettings);
+
+        Alert.alert(
+          'Email Verification Sent',
+          'A verification email has been sent. Please check your email and follow the instructions to complete the sign-up process.'
+        );
+        console.log('Sign-up successful!');
+        navigation.navigate('Home');
+      }
+    } catch (error) {
+      console.error('Error creating user:', error.code, error.message);
     }
   };
 
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Create your new account</Text>
-
+    <KeyboardAvoidingView style={styles.container}>
+      <Text style={styles.title1}>join to our beautiful comunity</Text>
+      <Text style={styles.title2}>share your story and ideas with us</Text>
+      <Text style={styles.title}>Create your account</Text>
+    
       <View style={styles.inputContainer}>
         <AntDesign name="user" size={24} color="black" style={styles.icon} />
         <TextInput
@@ -67,7 +89,7 @@ const SignupScreen = ({ navigation }) => {
         <Text style={styles.buttonText}>Signup</Text>
       </TouchableOpacity>
 
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -77,54 +99,73 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 20,
+    backgroundColor: '#E6C2D1',
+  },
+  logo: {
+    height: 100,
+    marginBottom: 20,
   },
   title: {
+    marginTop: 20,
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
+    color: '#FF69B4',
+    marginEnd: 10,
+  },
+  title1: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    color: '#FF69B4',
+  },
+  title2: {
+    fontSize: 17,
+    fontWeight: 'bold',
+    justifyContent: 'center',
+    marginBottom: 20,
+    color: '#FF69B4',
   },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 16,
-    backgroundColor: 'white',
+    backgroundColor: '#F4F4F4',
     borderRadius: 5,
     width: '100%',
   },
   icon: {
     padding: 10,
   },
-  
   input: {
+    flex: 1,
     height: 40,
-    width: '100%',
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 10,
     paddingLeft: 10,
+    color: '#333333',
   },
-  signupLink: {
-    marginTop: 20,
-    color: 'blue',
+  passwordInput: {
+    flex: 1,
+    height: 40,
+    paddingLeft: 10,
+    color: '#333333',
   },
   signupButton: {
-    backgroundColor: '#3498db',
+    backgroundColor: '#FF69B4',
     padding: 15,
     borderRadius: 8,
     width: '100%',
     alignItems: 'center',
     marginTop: 20,
-    elevation: 3, // for a slight shadow on Android
-    shadowColor: '#000', // for a slight shadow on iOS
+    elevation: 3,
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.5,
     shadowRadius: 2,
   },
-  
   buttonText: {
     color: 'white',
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: 'bold'
   },
 });
 

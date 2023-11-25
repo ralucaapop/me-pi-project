@@ -11,6 +11,8 @@ import ReaderScreen from './screens/ReaderScreen';
 import WriterScreen from './screens/WriterScreen'; 
 import UserProfileScreen from './screens/UserProfileScreen';
 import PostDetailScreen from './screens/PostDetailScreen';
+import SectionSelectionScreen from './screens/SectionSelectionScreen';
+import VerificationScreen from './screens/VerS';
 
 const Stack = createStackNavigator();
 
@@ -25,6 +27,8 @@ function App() {
         <Stack.Screen name="WriterScreen" component={WriterScreen} />
         <Stack.Screen name="UserProfile" component={UserProfileScreen} />
         <Stack.Screen name="PostDetail" component={PostDetailScreen} />
+        <Stack.Screen name="SectionSelection" component={SectionSelectionScreen} />
+        <Stack.Screen name="Verification" component={VerificationScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
