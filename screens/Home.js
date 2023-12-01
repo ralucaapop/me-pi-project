@@ -2,6 +2,8 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { auth } from '../firebase'; 
 import LinearGradient from 'react-native-linear-gradient';
+import FontAwesome from 'react-native-vector-icons/FontAwesome'; 
+
 
 const HomeScreen = ({ navigation }) => {
   // Retrieve the currently authenticated user's email
@@ -32,11 +34,15 @@ const handleRoleSelection = (role) => {
     navigation.navigate('UserProfile');
   };
 
+  const handleChat = () => {
+    navigation.navigate('ConversationListScreen');
+  };
+
   return (
     <View style={styles.container}>
         
         <Text style={styles.welcomeText} >Welcome!</Text>
-        <Text style={styles.descriptionText}>Choose your roll</Text>
+        <Text style={styles.descriptionText}>Choose your role</Text>
         <Text style={styles.descriptionText}>get inspired or feel creative, let your imagination take you in</Text>
         < TouchableOpacity style={styles.roleButton} onPress={() => handleRoleSelection('writer')}>
             <Text style={styles.buttonText}>Writer</Text>
@@ -44,6 +50,11 @@ const handleRoleSelection = (role) => {
         
         <TouchableOpacity style={styles.roleButton} onPress={() => handleRoleSelection('reader')}>
             <Text style={styles.buttonText}>Reader</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.chat} onPress={handleChat}>
+          <FontAwesome name="comments" size={24} color="#FCE4EC" />
+          <Text style={styles.chatButton}>Keep in touch with others</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.profileButton} onPress={handleUserProfile}>
@@ -63,12 +74,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#FCE4EC', // Misty Rose color
+    backgroundColor: '#E5D1B8', // Misty Rose color
   },
   welcomeText: {
     fontSize: 24,
     marginBottom: 20,
-    color: '#FF69B4', // Hot Pink color
+    color: '#C54C35', // Hot Pink color
   },
   descriptionText: {
     fontSize: 16,
@@ -76,10 +87,15 @@ const styles = StyleSheet.create({
     marginLeft: 13,
     marginRight: 13,
     textAlign: 'center',
-    color: '#4B0082', // Indigo color
+    color: '#24674F', // Indigo color
+  },
+  chatButton: {
+    fontSize: 18,
+    color: '#EBE4F0',
+    marginTop: 1,
   },
   roleButton: {
-    backgroundColor: '#FFC0CB', // Pink color
+    backgroundColor: '#3D001E', // Pink color
     padding: 15,
     marginTop: 10,
     borderRadius: 25,
@@ -87,7 +103,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   profileButton: {
-    backgroundColor: '#FF69B4', // Hot Pink color
+    backgroundColor: '#993520', // Hot Pink color
+    padding: 15,
+    marginTop: 80,
+    borderRadius: 25,
+    width: '70%',
+    alignItems: 'center',
+  },
+  chat: {
+    backgroundColor: '#EC846F', // Hot Pink color
     padding: 15,
     marginTop: 80,
     borderRadius: 25,
@@ -95,7 +119,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   signOutButton: {
-    backgroundColor: '#E75B97', 
+    backgroundColor: '#993520', 
     padding: 15,
     marginTop: 10,
     borderRadius: 25,

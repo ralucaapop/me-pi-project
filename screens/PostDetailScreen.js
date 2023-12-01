@@ -4,6 +4,7 @@ import { View, Text, StyleSheet,ScrollView, TouchableOpacity} from 'react-native
 import { db, auth } from '../firebase';
 import { collection, doc, getDoc, updateDoc, arrayRemove, arrayUnion } from 'firebase/firestore';
 import { useNavigation } from '@react-navigation/native';
+import FontAwesome from 'react-native-vector-icons/FontAwesome'; 
 
 const PostDetailScreen = ({ route }) => {
   const { postId } = route.params;
@@ -73,12 +74,15 @@ const PostDetailScreen = ({ route }) => {
     // Navigate to the PostDetail screen with the selected postId
     navigation.navigate('UserProfile2', { writerId });
   };
+
+  
   return (
     <ScrollView style={styles.container}>
 
       <TouchableOpacity onPress={() => navigateToWritterProfile(post.userId)}>
-          <Text style={styles.profileButton}>View Writer Profile</Text>
+          <Text style={styles.profileButton}>WRITER PROFILE</Text>
       </TouchableOpacity>
+      
       <Text style={styles.title}>Title: {post.title}</Text>
       <TouchableOpacity  onPress={handleLike}>
         <Text style={{ color: isLiked ? 'red' : 'black' }}>{isLiked ? '❤️' : '🖤'}</Text>
@@ -94,15 +98,21 @@ const PostDetailScreen = ({ route }) => {
 };
 
 const styles = StyleSheet.create({
+  chatButton: {
+    fontSize: 18,
+    color: '#333',
+    marginTop: 10,
+  },
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#E5D1B8',
   },
   profileButton: {
     fontSize: 20,
-    color: '#FF79CC', // Orange-Red color
+    color: '#708A81', 
     marginBottom: 10,
+    
   },
   title: {
     fontSize: 24,
@@ -113,7 +123,7 @@ const styles = StyleSheet.create({
   summary: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#FF79CC',
+    color: '#C54C35',
     marginBottom: 5,
   },
   summaryText: {
@@ -124,7 +134,7 @@ const styles = StyleSheet.create({
   content: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#FF79CC',
+    color: '#C54C35',
     marginBottom: 5,
   },
   contentText: {
@@ -136,5 +146,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#666',
   },
+
 });
 export default PostDetailScreen;

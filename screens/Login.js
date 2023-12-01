@@ -20,8 +20,10 @@ const LoginScreen = ({ navigation }) => {
     } catch (error) {
       if (error.code === 'auth/invalid-login-credentials') {
         Alert.alert('Wrong email or password. Try again');
-       
-      } else {
+      }else if (error.code === 'auth/invalid-email') {
+        Alert.alert('Invalid email. Try again');
+      }
+       else {
         console.error('Login error:', error.message);
       }
     }
@@ -74,7 +76,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 20,
-    backgroundColor: '#E6C2D1',
+    backgroundColor: '#E5D1B8',
   },
   
   logoText: {
@@ -88,7 +90,7 @@ const styles = StyleSheet.create({
     fontSize: 44,
     fontWeight: 'bold',
     marginBottom: 50,
-    color: '#FF69B4', // Hot Pink text color
+    color: '#C54C35', 
   },
   inputContainer: {
     flexDirection: 'row',
@@ -110,10 +112,10 @@ const styles = StyleSheet.create({
   },
   signupLink: {
     marginTop: 20,
-    color: '#FF69B4', // Hot Pink text color
+    color: '#708A81', // Hot Pink text color
   },
   loginButton: {
-    backgroundColor: '#FF69B4', // Hot Pink button color
+    backgroundColor: '#C54C35', // Hot Pink button color
     padding: 15,
     borderRadius: 30,
     width: '100%',

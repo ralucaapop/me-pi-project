@@ -97,10 +97,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: '#F5F5F5', // Light gray background
+    backgroundColor: '#E5D1B8', // Light gray background
   },
   specialSectionContainer: {
-    backgroundColor: '#E75B97', // Yellow color
+    backgroundColor: '#708A81', 
     padding: 16,
     borderRadius: 8,
     marginBottom: 16,
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
     color: '#666', // Medium gray text color
   },
   buttonText: {
-    color: '#DB3434', // Blue color
+    color: '#C54C35',
     textDecorationLine: 'none',
     fontSize: 16,
     fontWeight: 'bold',

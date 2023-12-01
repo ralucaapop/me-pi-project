@@ -56,10 +56,10 @@ const SignupScreen = ({ navigation }) => {
 
 
   return (
+    
     <KeyboardAvoidingView style={styles.container}>
       <Text style={styles.title1}>join to our beautiful comunity</Text>
       <Text style={styles.title2}>share your story and ideas with us</Text>
-      <Text style={styles.title}>Create your account</Text>
     
       <View style={styles.inputContainer}>
         <AntDesign name="mail" size={24} color="black" style={styles.icon} />
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 20,
-    backgroundColor: '#E6C2D1',
+    backgroundColor: '#E5D1B8',
   },
   logo: {
     height: 100,
@@ -112,21 +112,22 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
-    color: '#FF69B4',
+    color:'#708A81',
     marginEnd: 10,
   },
   title1: {
     fontSize: 16,
     fontWeight: 'bold',
     marginBottom: 20,
-    color: '#FF69B4',
+    color: '#708A81',
+    textTransform: 'uppercase'
   },
   title2: {
     fontSize: 17,
     fontWeight: 'bold',
     justifyContent: 'center',
     marginBottom: 20,
-    color: '#FF69B4',
+    color: '#708A81',
   },
   inputContainer: {
     flexDirection: 'row',
@@ -152,7 +153,7 @@ const styles = StyleSheet.create({
     color: '#333333',
   },
   signupButton: {
-    backgroundColor: '#FF69B4',
+    backgroundColor: '#C54C35',
     padding: 15,
     borderRadius: 8,
     width: '100%',

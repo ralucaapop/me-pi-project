@@ -4,6 +4,8 @@ import { View, Text, StyleSheet, TouchableOpacity, FlatList, ScrollView } from '
 import { db } from '../firebase';
 import {collection, query, where, getDocs} from 'firebase/firestore';
 import { useNavigation } from '@react-navigation/native';
+import FontAwesome from 'react-native-vector-icons/FontAwesome'; 
+
 
 const UserProfile2 = ({ route }) => {
   const { writerId } = route.params;
@@ -56,13 +58,21 @@ const UserProfile2 = ({ route }) => {
     // Navigate to the PostDetail screen with the selected postId
     navigation.navigate('PostDetail', { postId });
   };
-  
-  
+
+  const handleChat = () => {
+    // Assuming you have a 'ChatScreen' in your navigation stack
+    navigation.navigate('ChatScreen', { writerId: writerId });
+  };
+
   return (
     <View style={styles.container}>
       
     <Text style={styles.username}>Writer's account description: {writerProfile.description}</Text>
     <Text style={styles.username}>Writer's email: {writerProfile.email}</Text>
+    <TouchableOpacity onPress={handleChat}>
+      <FontAwesome name="comments" size={24} color="#333" />
+        <Text style={styles.chatButton}>Chat with Writer</Text>
+      </TouchableOpacity>
     <Text style={styles.storiesHeader}>Writer's Stories:</Text>
             <FlatList
               data={userStories}

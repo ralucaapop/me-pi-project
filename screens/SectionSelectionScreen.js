@@ -10,7 +10,7 @@ const SectionSelectionScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.headerText}>Choose a Section</Text>
+      <Text style={styles.headerText}>CHOOSE A SECTION</Text>
       <TouchableOpacity onPress={() => navigateToReader('WOF')}>
         <Text style={styles.sectionButton}>Walk of Fame</Text>
       </TouchableOpacity>
@@ -34,20 +34,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 16,
-    backgroundColor: '#F5F5F5', // Light gray background
+    backgroundColor: '#E5D1B8', // Light gray background
   },
   headerText: {
     fontSize: 34,
     fontWeight: 'bold',
     marginBottom: 16,
-    color: '#DA0836', // Dark text color
+    color: '#708A81', // Dark text color
     paddingBottom: 20,
   },
   sectionButton: {
     paddingBottom: 13,
     fontSize: 18,
     marginBottom: 12,
-    color: '#D88D9D', // Blue color
+    color: '#C54C35', // Blue color
     textDecorationLine: 'none',
   },
 });

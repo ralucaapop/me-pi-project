@@ -15,7 +15,6 @@ const VerificationScreen = ({ route, navigation }) => {
     console.log(generatedCode);
     console.log(verificationCode);
     if (codeAsNumber === generatedCode) {
-      // Code is valid, you can proceed with account creation
       Alert.alert('Verification Successful', 'Your account has been successfully verified!');
      
       try {
