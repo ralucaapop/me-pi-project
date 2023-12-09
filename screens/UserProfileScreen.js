@@ -121,7 +121,7 @@ const UserProfile = () => {
     <ScrollView contentContainerStyle={styles.scrollContainer}>
     <View style={styles.container}>
       
-      <Text style={styles.email}>Email: {userProfile.email}</Text>
+      <Text style={styles.email}>My e-mail: {userProfile.email}</Text>
       <Text style={styles.description}>Profile Description: {userProfile.description}</Text>
 
       <TextInput
@@ -199,57 +199,62 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     marginVertical: 10,
   },
+
   tabButton: {
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,
-    backgroundColor: '#FF69B4',
+    backgroundColor: '#EC846F', 
   },
+
   activeTabButton: {
-    backgroundColor: '#FF1493',
+    backgroundColor: '#993520',
   },
+
   tabButtonText: {
     color: 'white',
     fontWeight: 'bold',
   },
+
   scrollContainer: {
     flexGrow: 1,
-    backgroundColor: '#FCE4EC', // Light pink background
+    backgroundColor: '#E5D1B8', // Light pink background
     padding: 16,
   },
+
   storiesHeader: {
     fontSize: 18,
     fontWeight: 'bold',
     marginTop: 20,
     marginBottom: 10,
-    color: '#FF69B4',
+    color: '#708A81',
   },
 
   storyItem: {
     borderWidth: 1,
-    borderColor: '#FF69B4',
+    borderColor: '#708A81',
     borderRadius: 8,
     padding: 10,
     marginBottom: 10,
   },
  
-    container: {
+  container: {
       flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: '#FCE4EC', // Light pink background
+      backgroundColor: '#E5D1B8', 
       padding: 16,
     },
-    username: {
+  username: {
       fontSize: 20,
       fontWeight: 'bold',
       marginBottom: 10,
-      color: '#FF69B4', // Pink color
+      color: '#333333', 
     },
     email: {
       fontSize: 16,
       marginBottom: 10,
-      color: '#333333',
+      color: '#708A81',
     },
     description: {
       fontSize: 14,
@@ -258,26 +263,28 @@ const styles = StyleSheet.create({
     },
     descriptionInput: {
       borderWidth: 2,
-      borderColor: '#FF69B4', // Pink border
+      borderColor: '#333333', 
       borderRadius: 8,
       padding: 12,
       marginBottom: 10,
       width: '80%',
       textAlignVertical: 'top',
-      backgroundColor: '#FFFFFF', // White background
+      backgroundColor: '#FFFFFF', 
       color: '#333333',
     },
+    
     updateButton: {
-      backgroundColor: '#FF69B4', // Pink background
+      backgroundColor: '#3D0012', 
       padding: 15,
       borderRadius: 8,
       marginTop: 10,
-      elevation: 3, // for a slight shadow on Android
-      shadowColor: '#000', // for a slight shadow on iOS
+      elevation: 3, 
+      shadowColor: '#000', 
       shadowOffset: { width: 0, height: 1 },
       shadowOpacity: 0.5,
       shadowRadius: 2,
     },
+
     updateButtonText: {
       color: '#FFFFFF', // White text
       fontSize: 16,
@@ -289,17 +296,18 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
       marginTop: 20,
       marginBottom: 10,
-      color: '#FF69B4',
+      color: '#708A81',
     },
   
     storyItem: {
       borderWidth: 2,
-      borderColor: '#FF69B4',
+      borderColor: '#708A81',
       borderRadius: 8,
       padding: 16,
       marginBottom: 16,
+      backgroundColor: '#FFF',
     },
-  
+
     storyTitle: {
       fontSize: 18,
       fontWeight: 'bold',
@@ -314,7 +322,7 @@ const styles = StyleSheet.create({
     },
   
     viewDetailButton: {
-      backgroundColor: '#FF69B4',
+      backgroundColor: '#C54C35',
       padding: 10,
       borderRadius: 5,
     },

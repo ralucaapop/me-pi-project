@@ -68,12 +68,13 @@ const UserProfile2 = ({ route }) => {
     <View style={styles.container}>
       
     <Text style={styles.username}>Writer's account description: {writerProfile.description}</Text>
-    <Text style={styles.username}>Writer's email: {writerProfile.email}</Text>
-    <TouchableOpacity onPress={handleChat}>
-      <FontAwesome name="comments" size={24} color="#333" />
-        <Text style={styles.chatButton}>Chat with Writer</Text>
-      </TouchableOpacity>
-    <Text style={styles.storiesHeader}>Writer's Stories:</Text>
+
+    <TouchableOpacity style={styles.chat} onPress={handleChat}>
+      <FontAwesome name="comments" size={24} color="#FFF" />
+        <Text style={styles.chatButton}>Chat with writer</Text>
+    </TouchableOpacity>
+
+    <Text style={styles.storiesHeader}>Writer's stories:</Text>
             <FlatList
               data={userStories}
               keyExtractor={(item) => item.id}
@@ -90,31 +91,34 @@ const UserProfile2 = ({ route }) => {
     </View>
   );
 };
+
 const styles = StyleSheet.create({
     container: {
       flex: 1,
       padding: 16,
-      backgroundColor: '#FCE4EC',
+      backgroundColor: '#E5D1B8',
     },
     username: {
       fontSize: 20,
       fontWeight: 'bold',
       marginBottom: 10,
-      color: '#FF69B4',
+      color: '#3D0012',
+      marginTop: 30,
     },
     storiesHeader: {
-      fontSize: 18,
+      fontSize: 28,
       fontWeight: 'bold',
       marginTop: 20,
       marginBottom: 10,
-      color: '#FF69B4',
+      color: '#FFF',
     },
     storyItem: {
       borderWidth: 2,
-      borderColor: '#FF69B4',
+      borderColor: '#708A81',
       borderRadius: 8,
       padding: 16,
       marginBottom: 16,
+      backgroundColor: '#FFF',
     },
     storyTitle: {
       fontSize: 18,
@@ -128,7 +132,7 @@ const styles = StyleSheet.create({
       marginBottom: 8,
     },
     viewDetailButton: {
-      backgroundColor: '#FF69B4',
+      backgroundColor: '#C54C35',
       padding: 10,
       borderRadius: 5,
     },
@@ -136,6 +140,17 @@ const styles = StyleSheet.create({
       color: 'white',
       fontSize: 16,
       textAlign: 'center',
+    },
+    chat: {
+      backgroundColor: '#708A81',
+      padding: 15,
+      borderRadius: 25,
+      alignItems: 'center',
+    },
+    chatButton: {
+      fontSize: 18,
+      color: '#EBE4F0',
+      marginTop: 1,
     },
   });
   

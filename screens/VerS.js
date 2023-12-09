@@ -72,19 +72,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 20,
-    backgroundColor: '#E6C2D1',
+    backgroundColor: '#E5D1B8',
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
-    color: '#FF69B4',
+    color: '#C54C35',
   },
   subtitle: {
     fontSize: 16,
     marginBottom: 20,
     textAlign: 'center',
-    color: '#333',
+    color: '#708A81',
   },
   input: {
     height: 40,
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   verifyButton: {
-    backgroundColor: '#FF69B4',
+    backgroundColor: '#C54C35',
     padding: 15,
     borderRadius: 8,
     width: '80%',

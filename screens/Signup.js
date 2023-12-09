@@ -88,7 +88,7 @@ const SignupScreen = ({ navigation }) => {
       </View>
 
      <TouchableOpacity style={styles.signupButton} onPress={handleSignup}>
-        <Text style={styles.buttonText}>Signup</Text>
+        <Text style={styles.buttonText}>Sign Up</Text>
       </TouchableOpacity>
 
     </KeyboardAvoidingView>

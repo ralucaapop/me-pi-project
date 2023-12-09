@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: '#708A81', 
     marginBottom: 10,
-    
+    marginTop: 20,
   },
   title: {
     fontSize: 24,

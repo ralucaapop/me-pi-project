@@ -39,7 +39,10 @@ const WriterScreen = ({navigation}) => {
 
     const handleSaveStory = async () => {
        try {
-           
+        if (!storyTitle || !storySummary || !storyContent) {
+          console.error('Fill in all fields.');
+          return;
+        }
             const user = auth.currentUser;
             if (!user) {
               console.error('User not authenticated');
@@ -69,7 +72,7 @@ const WriterScreen = ({navigation}) => {
     <ScrollView style={styles.container}>
       <Text style={styles.header}>Write Your Story</Text>
       <RNPickerSelect
-        placeholder={{ label: 'Select a category...', value: null }}
+        placeholder={{ label: 'Select a category...', value: 'WOF' }}
         onValueChange={(value) => setSelectedCategory(value)}
         style={pickerSelectStyles}
         items={[
@@ -113,18 +116,20 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     padding: 16,
-    backgroundColor: '#FCE4EC', // Light pink background
+    backgroundColor: '#E5D1B8', 
+    marginTop: 2,
   },
   header: {
     fontSize: 28,
     fontWeight: 'bold',
     marginBottom: 24,
     textAlign: 'center',
-    color: '#FF69B4', // Pink color
+    color: '#708A81',
+    marginTop: 24,
   },
   input: {
     borderWidth: 2,
-    borderColor: '#FF69B4', // Pink border
+    borderColor: '#708A81', // Pink border
     borderRadius: 8,
     padding: 12,
     marginBottom: 16,
@@ -139,7 +144,7 @@ const styles = StyleSheet.create({
     height: 300,
   },
   buttons: {
-    backgroundColor: '#FF69B4', // Pink background
+    backgroundColor: '#C54C35', // Pink background
     color: '#FFFFFF', // White text
     fontSize: 18,
     fontWeight: 'bold',
@@ -167,7 +172,7 @@ const pickerSelectStyles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 10,
     borderWidth: 2,
-    borderColor: '#FF69B4',
+    borderColor: '#708A81',
     borderRadius: 8,
     color: '#333333',
     paddingRight: 30, // to ensure the text is never behind the icon
@@ -179,7 +184,7 @@ const pickerSelectStyles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 8,
     borderWidth: 2,
-    borderColor: '#FF69B4',
+    borderColor: '#708A81',
     borderRadius: 8,
     color: '#333333',
     paddingRight: 30, // to ensure the text is never behind the icon

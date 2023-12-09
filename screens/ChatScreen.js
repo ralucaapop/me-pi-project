@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     padding: 8,
-    backgroundColor: '#A44949',
+    backgroundColor: '#C54C35',
     borderTopWidth: 1,
     borderTopColor: '#bdc3c7',
   },
@@ -209,6 +209,7 @@ const styles = StyleSheet.create({
   },
   sendButton: {
     backgroundColor:'#C54C35',
+    color: '#FFF',
   },
 });
 
